@@ -28,7 +28,7 @@ class Notes {
     read(title) {
         const alldata = this.checkfile(this.file);
         let returnstring;      //a variable for storing element's index
-        if ((i = alldata.notes.findIndex((el) => {
+        if ((alldata.notes.findIndex((el) => {
             if (el.title === title) {
                 returnstring = `Note:\n${el.title} - ${el.body};\nCreated on ${el.date}\n`;
                 return true;
