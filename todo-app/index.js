@@ -16,9 +16,11 @@ function main() {
             yargs.options('t', { demand: true, desc: 'Note title' })
             yargs.options('b', { demand: true, desc: 'Note body' })
         }, (yargs) => {
+            const date = new Date(Date.now()).toLocaleString().replace(/-/g, "/");
             const new_note = {
                 title: yargs.title,
-                body: yargs.body
+                body: yargs.body,
+                date: date, 
             };
             console.log(notes.add(new_note));
         })

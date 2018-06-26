@@ -6,8 +6,8 @@ class Notes {
     }
     add(newnote) {
         const alldata = this.checkfile(this.file);
-        if (alldata.notes.findIndex((el) => { 
-            if (el.title === newnote.title) return true; 
+        if (alldata.notes.findIndex((el) => {
+            if (el.title === newnote.title) return true;
         }) === -1) {   //check if the note title is unique
             alldata.notes.push(newnote);
             this.write(JSON.stringify(alldata));
@@ -20,26 +20,29 @@ class Notes {
         let resultstring = "";
         const alldata = this.checkfile(this.file);
         alldata.notes.forEach((element, index) => {
-            resultstring += `Note ${index}:\n${element.title} - ${element.body}\n`;
+            resultstring += `Note ${index}:\n${element.title} - ${element.body};\nCreated on ${element.date}\n`;
         })
         return resultstring;
     }
 
     read(title) {
         const alldata = this.checkfile(this.file);
-        let i;      //a variable for storing element's index
-        if ((i = alldata.notes.findIndex((el) => { 
-            if (el.title === title) return true; 
+        let returnstring;      //a variable for storing element's index
+        if ((i = alldata.notes.findIndex((el) => {
+            if (el.title === title) {
+                returnstring = `Note:\n${el.title} - ${el.body};\nCreated on ${el.date}\n`;
+                return true;
+            };
         })) !== -1) {    //checking if a note with this title exists
-            return alldata.notes[i].title + " - " + alldata.notes[i].body;
+            return returnstring;
         } else return "No such note found";
     }
 
     remove(title) {
         const alldata = this.checkfile(this.file);
         let i;      //a variable for storing element's index
-        if ((i = alldata.notes.findIndex((el) => { 
-            if (el.title === title) return true; 
+        if ((i = alldata.notes.findIndex((el) => {
+            if (el.title === title) return true;
         })) !== -1) {  //checking if a note with this title exists
             alldata.notes.splice(i, 1);
             this.write(JSON.stringify(alldata));
