@@ -1,0 +1,23 @@
+{
+  "name": "js-task-03",
+  "version": "1.0.0",
+  "description": "todo app + getting a character from rickandmortyapi.com",
+  "main": "index.js",
+  "dependencies": {
+    "yargs": "^11.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VolhaValasevich/js-task-03.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VolhaValasevich/js-task-03/issues"
+  },
+  "homepage": "https://github.com/VolhaValasevich/js-task-03#readme"
+}

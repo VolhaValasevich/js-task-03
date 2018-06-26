@@ -1,0 +1,6 @@
+*.txt
+*.json
+*.xlsx
+node_modules/
+!package.json
+!package-lock.json
