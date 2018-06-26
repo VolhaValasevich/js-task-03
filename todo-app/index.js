@@ -1,5 +1,6 @@
 function main() {
-    const notes = require("./notes.js");
+    const Notes = require("./notes.js");
+    const notes = new Notes();
     const yargs = require("yargs")
         .usage(`Simple todo app\nUsage: $0 <command> <arguments>`)
         .example('$0 add -t [title] -b [body]', 'add a new note')
