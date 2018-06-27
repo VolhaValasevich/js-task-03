@@ -1,3 +1,5 @@
+const fs = require("fs");
+
 function main() {
     const Notes = require("./notes.js");
     const notes = new Notes();
@@ -11,7 +13,8 @@ function main() {
             't': 'title',
             'b': 'body',
             'p': 'parameter',
-            'o': 'order'
+            'o': 'order',
+            'f': 'file'
         })
         .demandCommand(1, "You didn't enter a command!")
         .command('add', 'add a new note', (yargs) => {
@@ -48,6 +51,18 @@ function main() {
             const param = yargs.parameter;
             const order = yargs.order;
             console.log(notes.sort(param, order));
+        })
+        .command('readExcel', 'import notes from a .xslx file', (yargs) => {
+            yargs.options('f', { demand: true, desc: 'Path to XLSX file with notes'});
+        }, (yargs) => {
+            const file = yargs.file;
+            console.log(notes.readFromExcel(file));
+        })
+        .command('writeExcel', 'export notes to a .xslx file', (yargs) => {
+            yargs.options('f', { demand: true, desc: 'Path to a result XLSX file'});
+        }, (yargs) => {
+            const file = yargs.file;
+            console.log(notes.writeToExcel(file));
         })
         .argv;
 }

@@ -1,4 +1,5 @@
 const fs = require("fs");
+const xlsx = require("xlsx");
 
 class Notes {
     constructor() {
@@ -78,6 +79,26 @@ class Notes {
             resultstring += `Note ${index}:\n${element.title} - ${element.body};\nCreated on ${element.date}\n`;
         })
         return resultstring;
+    }
+
+    writeToExcel(file) {
+        try {
+            const alldata = this.checkfile(this.file);
+            const workbook = xlsx.utils.book_new();
+            xlsx.utils.book_append_sheet(workbook, xlsx.utils.json_to_sheet(alldata.notes), "Notes");
+            xlsx.writeFile(workbook, file);
+            return "Notes were successfully exported."
+        } catch (err) { return err; }
+    }
+
+    readFromExcel(file) {
+        try {
+            const datasheet = xlsx.readFile(file).Sheets["Notes"];
+            const data = JSON.stringify(xlsx.utils.sheet_to_json(datasheet));
+            const result = `{"notes":${data}}`;
+            this.write(result);
+            return "Notes were successfully imported";
+        } catch (err) { return err; }
     }
 
     checkfile(file) {
