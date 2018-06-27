@@ -68,8 +68,8 @@ class Notes {
                     else return b.body.length - a.body.length;
                 }
                 case 'title': {
-                    if (order === 'asc') return a.title.toLowerCase() - b.title.toLowerCase();
-                    else return b.title.toLowerCase() - a.title.toLowerCase();
+                    if (order === 'asc') return a.title.toString().toLowerCase() - b.title.toString().toLowerCase();
+                    else return b.title.toString().toLowerCase() - a.title.toString().toLowerCase();
                 }
                 default: throw err(`Unknown parameter '${param}'!`)
             }
@@ -118,9 +118,8 @@ class Notes {
     }
 
     addZero(num) {
-        if (num < 10) {
-            return '0' + num;
-        } else return num;
+        if (num < 10) return '0' + num;
+        else return num;
     }
 }
 

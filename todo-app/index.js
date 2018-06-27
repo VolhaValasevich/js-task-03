@@ -42,8 +42,8 @@ function main() {
             console.log(notes.remove(title));
         })
         .command('sort', 'sort all notes by date, title/body length or alphabetial order', (yargs) => {
-            yargs.options('p', { demand: true, desc: 'Parameter to sort notes by (date, titlelength, bodylength, title)'})
-            yargs.options('o', { demand: true, desc: 'Order of sorting (asc, desc)'})
+            yargs.options('p', { demand: false, default: 'title', desc: 'Parameter to sort notes by (date, titlelength, bodylength, title)'})
+            yargs.options('o', { demand: false, default: 'asc', desc: 'Order of sorting (asc, desc)'})
         }, (yargs) => {
             const param = yargs.parameter;
             const order = yargs.order;
