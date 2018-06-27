@@ -82,6 +82,19 @@ class Notes {
         return resultstring;
     }
 
+    update(param, title, newinfo) {
+        const alldata = this.checkfile(this.file);
+        let i;
+        if ((i = alldata.notes.findIndex((el) => {              //checking if a note with this title exists
+            if (el.title === title) { return true; }
+        })) !== -1) {                                    
+            if (param === 'title') alldata.notes[i].title = newinfo;
+            else alldata.notes[i].body = newinfo;
+            this.write(JSON.stringify(alldata));
+            return "Note was successfully updated";
+        } else return "No such note found";
+    }
+
     writeToExcel(file) {
         try {
             const alldata = this.checkfile(this.file);

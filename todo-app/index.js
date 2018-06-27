@@ -14,7 +14,8 @@ function main() {
             'b': 'body',
             'p': 'parameter',
             'o': 'order',
-            'f': 'file'
+            'f': 'file',
+            'n' : 'newinfo'
         })
         .demandCommand(1, "You didn't enter a command!")
         .command('add', 'add a new note', (yargs) => {
@@ -63,6 +64,22 @@ function main() {
         }, (yargs) => {
             const file = yargs.file;
             console.log(notes.writeToExcel(file));
+        })
+        .command('updatetitle', 'change title of a selected note', (yargs) => {
+            yargs.options('t', { demand: true, desc: 'Note title'});
+            yargs.options('n', { demand: true, desc: 'New title'});
+        }, (yargs) => {
+            const title = yargs.title;
+            const newinfo = yargs.newinfo;
+            console.log(notes.update('title', title, newinfo));
+        })
+        .command('updatebody', 'change body of a selected note', (yargs) => {
+            yargs.options('t', { demand: true, desc: 'Note title'});
+            yargs.options('n', { demand: true, desc: 'New body'});
+        }, (yargs) => {
+            const title = yargs.title;
+            const newinfo = yargs.newinfo;
+            console.log(notes.update('body', title, newinfo));
         })
         .argv;
 }
