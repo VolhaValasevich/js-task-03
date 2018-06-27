@@ -75,6 +75,7 @@ class Notes {
                 default: throw err(`Unknown parameter '${param}'!`)
             }
         })
+        this.write(`{"notes":${JSON.stringify(sorteddata)}}`);
         sorteddata.forEach((element, index) => {
             resultstring += `Note ${index}:\n${element.title} - ${element.body};\nCreated on ${element.date}\n`;
         })
