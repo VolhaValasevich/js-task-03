@@ -50,6 +50,36 @@ class Notes {
         } else return "No such note found";
     }
 
+    sort(param, order) {
+        let resultstring = "";
+        const alldata = this.checkfile(this.file);
+        const sorteddata = alldata.notes.sort((a, b) => {
+            switch (param) {
+                case 'date': {
+                    if (order === 'asc') return this.stringToDate(a.date).getTime() - this.stringToDate(b.date).getTime();
+                    else return this.stringToDate(b.date).getTime() - this.stringToDate(a.date).getTime();
+                }
+                case 'titlelength': {
+                    if (order === 'asc') return a.title.length - b.title.length;
+                    else return b.title.length - a.title.length;
+                }
+                case 'bodylength': {
+                    if (order === 'asc') return a.body.length - b.body.length;
+                    else return b.body.length - a.body.length;
+                }
+                case 'title': {
+                    if (order === 'asc') return a.title.toLowerCase() - b.title.toLowerCase();
+                    else return b.title.toLowerCase() - a.title.toLowerCase();
+                }
+                default: throw err(`Unknown parameter '${param}'!`)
+            }
+        })
+        sorteddata.forEach((element, index) => {
+            resultstring += `Note ${index}:\n${element.title} - ${element.body};\nCreated on ${element.date}\n`;
+        })
+        return resultstring;
+    }
+
     checkfile(file) {
         const defaultcontent = '{"notes":[]}';     //default json string that will be written in the file if it is corrupted or empty
         try {

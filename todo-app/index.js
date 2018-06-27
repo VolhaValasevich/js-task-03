@@ -9,7 +9,9 @@ function main() {
         .example('$0 remove -t [title]', 'remove a note by title')
         .alias({
             't': 'title',
-            'b': 'body'
+            'b': 'body',
+            'p': 'parameter',
+            'o': 'order'
         })
         .demandCommand(1, "You didn't enter a command!")
         .command('add', 'add a new note', (yargs) => {
@@ -38,6 +40,14 @@ function main() {
         }, (yargs) => {
             const title = yargs.title;
             console.log(notes.remove(title));
+        })
+        .command('sort', 'sort all notes by date, title/body length or alphabetial order', (yargs) => {
+            yargs.options('p', { demand: true, desc: 'Parameter to sort notes by (date, titlelength, bodylength, title)'})
+            yargs.options('o', { demand: true, desc: 'Order of sorting (asc, desc)'})
+        }, (yargs) => {
+            const param = yargs.parameter;
+            const order = yargs.order;
+            console.log(notes.sort(param, order));
         })
         .argv;
 }
