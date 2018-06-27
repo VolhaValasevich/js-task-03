@@ -64,6 +64,34 @@ class Notes {
     write(data) {
         fs.writeFileSync(this.file, data, "utf-8");
     }
+
+    dateToString(date) {
+        const day = this.addZero(date.getDate());
+        const month = this.addZero(date.getMonth() + 1);
+        const year = date.getFullYear();
+        const hours = this.addZero(date.getHours());
+        const minutes = this.addZero(date.getMinutes());
+        const seconds = this.addZero(date.getSeconds());
+        return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+    }
+
+    stringToDate(str) {
+        const date = str.split(" ")[0].split("/");
+        const time = str.split(" ")[1].split(":");
+        const day = date[0];
+        const month = date[1] - 1;
+        const year = date[2];
+        const hours = time[0];
+        const minutes = time[1];
+        const seconds = time[2];
+        return new Date(year, month, day, hours, minutes, seconds);
+    }
+
+    addZero(num) {
+        if (num < 10) {
+            return '0' + num;
+        } else return num;
+    }
 }
 
 module.exports = Notes;
