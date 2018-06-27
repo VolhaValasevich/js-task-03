@@ -98,19 +98,35 @@ class Notes {
     writeToExcel(file) {
         try {
             const alldata = this.checkfile(this.file);
-            const workbook = xlsx.utils.book_new();
-            xlsx.utils.book_append_sheet(workbook, xlsx.utils.json_to_sheet(alldata.notes), "Notes");
-            xlsx.writeFile(workbook, file);
+            let data = `title\tbody\tdate\n`;
+            //const workbook = xlsx.utils.book_new();
+            //xlsx.utils.book_append_sheet(workbook, xlsx.utils.json_to_sheet(alldata.notes), "Notes");
+            //xlsx.writeFile(workbook, file);
+            alldata.notes.forEach((el, index) => {
+                data += `${el.title}\t${el.body}\t${el.date}\n`
+            })
+            fs.writeFileSync(file, data.slice(0, -1));
             return "Notes were successfully exported."
         } catch (err) { return err; }
     }
 
     readFromExcel(file) {
         try {
-            const datasheet = xlsx.readFile(file).Sheets["Notes"];
+            /*const datasheet = xlsx.readFile(file).Sheets["Notes"];
             const data = JSON.stringify(xlsx.utils.sheet_to_json(datasheet));
-            const result = `{"notes":${data}}`;
-            this.write(result);
+            const result = `{"notes":${data}}`;*/
+            const alldata = JSON.parse('{"notes":[]}');
+            const data = fs.readFileSync(file, "utf-8").split("\n").slice(1);
+            data.forEach((el) => {
+                el = el.split("\t");
+                const note = {
+                    title : el[0],
+                    body : el[1],
+                    date : el[2]
+                };
+                alldata.notes.push(note);
+            })
+            this.write(JSON.stringify(alldata));
             return "Notes were successfully imported";
         } catch (err) { return err; }
     }
