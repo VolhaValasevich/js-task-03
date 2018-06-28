@@ -6,30 +6,30 @@ class Util {
     }
 
     getData(url) {
-        let result = [];
-        const getchars = (url) => request(url, { json: true })
+        let result = [];            
+        const getchars = (url) => request(url, { json: true })  //recursive function for getting characters from all pages
             .then((body) => {
-                result = result.concat(body.results);
-                if (body.info.next !== "") {
-                    return getchars(body.info.next);
-                } else return result;
+                result = result.concat(body.results);           //saving results from current page
+                if (body.info.next !== "") {                    //checking if it is the last page
+                    return getchars(body.info.next);            //if not, get characters from the next page
+                } else return result;                       
             })
 
-        return getchars(url);
+        return getchars(url);                                   
     }
 
     search(args) {
         return new Promise((resolve, reject) => {
-            const keys = this.getKeys(args);
+            const keys = this.getKeys(args);                //get all the parameters for search
             try {
-                this.getData(this.url).then((data) => {
-                    const chars = data.map((el) => {
-                        let flag = true;
-                        for (let i = 0; i < keys.length; i++) {
-                            if (keys[i] === 'origin' || keys[i] === 'location') {
-                                if (el[keys[i]].name.indexOf(args[keys[i]]) === -1) {
-                                    flag = false;
-                                    break;
+                this.getData(this.url).then((data) => {        //get all data
+                    const chars = data.map((el) => {           //creating a new array of characters
+                        let flag = true;                       //flag to indicate that current character fits the criteria
+                        for (let i = 0; i < keys.length; i++) {                         //checking multiple parameters
+                            if (keys[i] === 'origin' || keys[i] === 'location') {       //"origin" and "location" parameters are objects
+                                if (el[keys[i]].name.indexOf(args[keys[i]]) === -1) {   //and have to be checked by their .name property
+                                    flag = false;              //if one parameter does not fit the criteria, character is marked as not right                                      
+                                    break;                     //and cycle breaks
                                 }
                             } else {
                                 if (el[keys[i]].indexOf(args[keys[i]]) === -1) {
@@ -38,9 +38,7 @@ class Util {
                                 }
                             }
                         }
-                        if (flag === true) {
-                            return el;
-                        }
+                        if (flag === true) { return el; }       //if the character is marked as right, return it to the result array
                     })
                     resolve(chars);
                 })
@@ -49,20 +47,20 @@ class Util {
     }
 
     getKeys(args) {
-        const keys = ['id', 'name', 'species', 'status', 'type', 'gender', 'origin', 'location', 'episode'];
+        const keys = ['id', 'name', 'species', 'status', 'type', 'gender', 'origin', 'location', 'episode'];        //availiable parameters for search 
         const result = [];
-        Object.keys(args).forEach((el) => {
-            if (keys.includes(el)) result.push(el);
+        Object.keys(args).forEach((el) => {                 //get keys from command arguments
+            if (keys.includes(el)) result.push(el);         //if the key is a search parameter, save it
         })
         if (result.length < 1) throw new Error("You didn't enter a command!");
         return result;
     }
 
-    filter(arr) {
+    filter(arr) {               //function for removing empty elements from an array
         return arr.filter((el) => { return el !== undefined; })
     }
 
-    format(data) {
+    format(data) {              //function for transforming raw data into formatted text
         let result = `Found ${data.length} entries:\n\n`;
         data.forEach((el) => {
             result += `Id: ${el.id};\nName: ${el.name};\nStatus: ${el.status};\nSpecies: ${el.species};\nType: ${el.type};\nGender: ${el.gender};\nOrigin: ${el.origin.name};\nLocation: ${el.location.name}\n\n`

@@ -25,7 +25,7 @@ function main() {
         if (result.length > 0) {
             const text = util.format(result);
             console.log(text);
-            fs.writeFileSync(`result${Date.now()}.json`, JSON.stringify(result));
+            fs.writeFileSync(`result${Date.now()}.json`, JSON.stringify(result));    //Date.now() is used to give each search result file a unique name
         }
         else console.log("No such characters found.");
     })
