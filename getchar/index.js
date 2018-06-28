@@ -1,8 +1,9 @@
 const yargs = require("yargs");
-const Searcher = require("./searcher.js");
+const fs = require("fs");
+const Util = require("./util.js");
 
 function main() {
-    const searcher = new Searcher();
+    const util = new Util();
     const args = yargs
         .usage("An app to search for a specific character on rickandmortyapi.com")
         .example("$0 -n Rick")
@@ -18,10 +19,13 @@ function main() {
         })
         .argv;
 
-    searcher.search(args).then((data, err) => {
+    util.search(args).then((data, err) => {
         if (err) console.log(err);
-        const result = searcher.filter(data);
-        if (result.length > 0) console.log(result);
+        const result = util.filter(data);
+        if (result.length > 0) {
+            console.log(result);
+            fs.writeFileSync(`result${Date.now()}.json`, JSON.stringify(result));
+        }
         else console.log("No such characters found.");
     })
 }

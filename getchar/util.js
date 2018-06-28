@@ -1,5 +1,5 @@
 const request = require('request-promise-native');
-class Searcher {
+class Util {
 
     constructor() {
         this.url = "https://rickandmortyapi.com/api/character";
@@ -64,4 +64,4 @@ class Searcher {
 
 }
 
-module.exports = Searcher;
+module.exports = Util;
