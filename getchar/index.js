@@ -23,7 +23,8 @@ function main() {
         if (err) console.log(err);
         const result = util.filter(data);
         if (result.length > 0) {
-            console.log(result);
+            const text = util.format(result);
+            console.log(text);
             fs.writeFileSync(`result${Date.now()}.json`, JSON.stringify(result));
         }
         else console.log("No such characters found.");

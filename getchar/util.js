@@ -62,6 +62,14 @@ class Util {
         return arr.filter((el) => { return el !== undefined; })
     }
 
+    format(data) {
+        let result = `Found ${data.length} entries:\n\n`;
+        data.forEach((el) => {
+            result += `Id: ${el.id};\nName: ${el.name};\nStatus: ${el.status};\nSpecies: ${el.species};\nType: ${el.type};\nGender: ${el.gender};\nOrigin: ${el.origin.name};\nLocation: ${el.location.name}\n\n`
+        })
+        return result.slice(0, -1);
+    }
+
 }
 
 module.exports = Util;
