@@ -13,6 +13,8 @@ function main() {
             's': 'species',
             't': 'type',
             'g': 'gender',
+            'o' : 'origin',
+            'l' : 'location'
         })
         .argv;
 

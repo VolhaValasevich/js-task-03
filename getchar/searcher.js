@@ -26,14 +26,20 @@ class Searcher {
                     const chars = data.map((el) => {
                         let flag = true;
                         for (let i = 0; i < keys.length; i++) {
-                            if (el[keys[i]].indexOf(args[keys[i]]) === -1) {
-                                flag = false;
-                                break;
+                            if (keys[i] === 'origin' || keys[i] === 'location') {
+                                if (el[keys[i]].name.indexOf(args[keys[i]]) === -1) {
+                                    flag = false;
+                                    break;
+                                }
+                            } else {
+                                if (el[keys[i]].indexOf(args[keys[i]]) === -1) {
+                                    flag = false;
+                                    break;
+                                }
                             }
                         }
-                        
                         if (flag === true) {
-                           return el;
+                            return el;
                         }
                     })
                     resolve(chars);
