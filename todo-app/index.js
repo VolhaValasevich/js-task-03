@@ -1,5 +1,3 @@
-const fs = require("fs");
-
 function main() {
     const Notes = require("./notes.js");
     const notes = new Notes();
