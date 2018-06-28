@@ -4,8 +4,10 @@
   "description": "todo app + getting a character from rickandmortyapi.com",
   "main": "index.js",
   "dependencies": {
-    "yargs": "^11.0.0",
-    "xlsx": "^0.13.1"
+    "request": "^2.87.0",
+    "request-promise-native": "^1.0.5",
+    "xlsx": "^0.13.1",
+    "yargs": "^11.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
