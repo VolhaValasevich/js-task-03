@@ -102,10 +102,10 @@ class Notes {
         try {
             const alldata = this.checkfile(this.file);
             const workbook = new xl.Workbook();
-            const sheet = workbook.addWorksheet('Notes');
-            sheet.cell(1, 1).string('title');
-            sheet.cell(1, 2).string('body');
-            sheet.cell(1, 3).string('date');
+            const sheet = workbook.addWorksheet("Sheet1");
+            sheet.cell(1, 1).string("title");
+            sheet.cell(1, 2).string("body");
+            sheet.cell(1, 3).string("date");
             alldata.notes.forEach(function (element, i) {
                 sheet.cell(i + 2, 1).string(element.title.toString());
                 sheet.cell(i + 2, 2).string(element.body.toString());
@@ -119,7 +119,7 @@ class Notes {
     readFromExcel(file) {
         try {
             let result = JSON.parse(`{"notes":[]}`);
-            const datasheet = xlsx.readFile(file).Sheets["Notes"];
+            const datasheet = xlsx.readFile(file).Sheets["Sheet1"];
             const data = xlsx.utils.sheet_to_json(datasheet);
             data.forEach((el) => { result.notes.push(el); })
             this.write(JSON.stringify(result));

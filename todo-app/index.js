@@ -13,7 +13,7 @@ function main() {
             'p': 'parameter',
             'o': 'order',
             'f': 'file',
-            'n' : 'newinfo'
+            'n' : 'newtitle'
         })
         .demandCommand(1, "You didn't enter a command!")
         .command('add', 'add a new note', (yargs) => {
@@ -70,23 +70,22 @@ function main() {
             const result = notes.writeToExcel(file);
             console.log(result);
         })
-        .command('updatetitle', 'change title of a selected note', (yargs) => {
+        .command('update', 'update a selected note', (yargs) => {
             yargs.options('t', { demand: true, desc: 'Note title'});
-            yargs.options('n', { demand: true, desc: 'New title'});
+            yargs.options('n', { demand: false, desc: 'New title'});
+            yargs.options('b', { demand: false, desc: 'New body'});
         }, (yargs) => {
-            const title = yargs.title;
-            const newinfo = yargs.newinfo;
-            const result = notes.update('title', title, newinfo);
-            console.log(result);
-        })
-        .command('updatebody', 'change body of a selected note', (yargs) => {
-            yargs.options('t', { demand: true, desc: 'Note title'});
-            yargs.options('n', { demand: true, desc: 'New body'});
-        }, (yargs) => {
-            const title = yargs.title;
-            const newinfo = yargs.newinfo;
-            const result = notes.update('body', title, newinfo);
-            console.log(result);
+            let title = yargs.title;
+            const newtitle = yargs.n;
+            const newbody = yargs.b;
+            let result;
+            if (newtitle === undefined && newbody === undefined) console.log("Enter parameter you want to update: --newtitle or --body");
+            if (newtitle !== undefined) {
+                result = notes.update('title', title, newtitle);
+                title = newtitle;
+            }
+            if (newbody !== undefined) { result = notes.update('body', title, newbody); }
+            if (result !== undefined) console.log(result);
         })
         .argv;
 }
