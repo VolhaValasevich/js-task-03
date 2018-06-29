@@ -1,4 +1,5 @@
 const fs = require("fs");
+const xl = require("excel4node");
 const xlsx = require("xlsx");
 const path = require("path");
 
@@ -89,7 +90,7 @@ class Notes {
         let i;
         if ((i = alldata.notes.findIndex((el) => {              //checking if a note with this title exists
             if (el.title === title) { return true; }
-        })) !== -1) {                                    
+        })) !== -1) {
             if (param === 'title') alldata.notes[i].title = newinfo;
             else alldata.notes[i].body = newinfo;
             this.write(JSON.stringify(alldata));
@@ -100,20 +101,28 @@ class Notes {
     writeToExcel(file) {
         try {
             const alldata = this.checkfile(this.file);
-            let data = `title\tbody\tdate\n`;
-            const workbook = xlsx.utils.book_new();
-            xlsx.utils.book_append_sheet(workbook, xlsx.utils.json_to_sheet(alldata.notes), "Notes");
-            xlsx.writeFile(workbook, file);
+            const workbook = new xl.Workbook();
+            const sheet = workbook.addWorksheet('Notes');
+            sheet.cell(1, 1).string('title');
+            sheet.cell(1, 2).string('body');
+            sheet.cell(1, 3).string('date');
+            alldata.notes.forEach(function (element, i) {
+                sheet.cell(i + 2, 1).string(element.title.toString());
+                sheet.cell(i + 2, 2).string(element.body.toString());
+                sheet.cell(i + 2, 3).string(element.date);
+                workbook.write(file);
+            });
             return "Notes were successfully exported."
         } catch (err) { return err; }
     }
 
     readFromExcel(file) {
         try {
+            let result = JSON.parse(`{"notes":[]}`);
             const datasheet = xlsx.readFile(file).Sheets["Notes"];
-            const data = JSON.stringify(xlsx.utils.sheet_to_json(datasheet));
-            const result = `{"notes":${data}}`;
-            this.write(result);
+            const data = xlsx.utils.sheet_to_json(datasheet);
+            data.forEach((el) => { result.notes.push(el); })
+            this.write(JSON.stringify(result));
             return "Notes were successfully imported";
         } catch (err) { return err; }
     }
