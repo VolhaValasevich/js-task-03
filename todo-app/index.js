@@ -26,22 +26,26 @@ function main() {
                 body: yargs.body,
                 date: date, 
             };
-            console.log(notes.add(new_note));
+            const result = notes.add(new_note);
+            console.log(result);
         })
         .command('list', 'list all notes', () => {
-            console.log(notes.list());
+            const result = notes.list();
+            console.log(result);
         })
         .command('read', 'read a note by title', (yargs) => {
             yargs.options('t', { demand: true, desc: 'Note title' })
         }, (yargs) => {
             const title = yargs.title;
-            console.log(notes.read(title));
+            const result = notes.read(title);
+            console.log(result);
         })
         .command('remove', 'remove a note by title', (yargs) => {
             yargs.options('t', { demand: true, desc: 'Note title' })
         }, (yargs) => {
             const title = yargs.title;
-            console.log(notes.remove(title));
+            const result = notes.remove(title);
+            console.log(result);
         })
         .command('sort', 'sort all notes by date, title/body length or alphabetial order', (yargs) => {
             yargs.options('p', { demand: false, default: 'title', desc: 'Parameter to sort notes by (date, titlelength, bodylength, title)'})
@@ -49,19 +53,22 @@ function main() {
         }, (yargs) => {
             const param = yargs.parameter;
             const order = yargs.order;
-            console.log(notes.sort(param, order));
+            const result = notes.sort(param, order);
+            console.log(result);
         })
         .command('readExcel', 'import notes from a .xslx file', (yargs) => {
             yargs.options('f', { demand: true, desc: 'Path to XLSX file with notes'});
         }, (yargs) => {
             const file = yargs.file;
-            console.log(notes.readFromExcel(file));
+            const result = notes.readFromExcel(file);
+            console.log(result);
         })
         .command('writeExcel', 'export notes to a .xslx file', (yargs) => {
             yargs.options('f', { demand: true, desc: 'Path to a result XLSX file'});
         }, (yargs) => {
             const file = yargs.file;
-            console.log(notes.writeToExcel(file));
+            const result = notes.writeToExcel(file);
+            console.log(result);
         })
         .command('updatetitle', 'change title of a selected note', (yargs) => {
             yargs.options('t', { demand: true, desc: 'Note title'});
@@ -69,7 +76,8 @@ function main() {
         }, (yargs) => {
             const title = yargs.title;
             const newinfo = yargs.newinfo;
-            console.log(notes.update('title', title, newinfo));
+            const result = notes.update('title', title, newinfo);
+            console.log(result);
         })
         .command('updatebody', 'change body of a selected note', (yargs) => {
             yargs.options('t', { demand: true, desc: 'Note title'});
@@ -77,7 +85,8 @@ function main() {
         }, (yargs) => {
             const title = yargs.title;
             const newinfo = yargs.newinfo;
-            console.log(notes.update('body', title, newinfo));
+            const result = notes.update('body', title, newinfo);
+            console.log(result);
         })
         .argv;
 }
