@@ -15,7 +15,7 @@ If the list of notes does not exist yet, it will be created automatically. Note 
 - [Remove a selected note](https://github.com/VolhaValasevich/js-task-03/tree/master#remove-a-selected-note)
 - [Sort notes](https://github.com/VolhaValasevich/js-task-03/tree/master#sort-notes)
 - [Import notes from an Excel file](https://github.com/VolhaValasevich/js-task-03/tree/master#import-notes-from-an-excel-file)
-- [Export notes to an Excel file](https://github.com/VolhaValasevich/js-task-03/tree/master#exmport-notes-to-an-excel-file)
+- [Export notes to an Excel file](https://github.com/VolhaValasevich/js-task-03/tree/master#export-notes-to-an-excel-file)
 - [Update note](https://github.com/VolhaValasevich/js-task-03/tree/master#update-note)
 ##### List all notes
 ```
