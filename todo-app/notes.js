@@ -1,9 +1,11 @@
 const fs = require("fs");
 const xlsx = require("xlsx");
+const path = require("path");
 
 class Notes {
     constructor() {
-        this.file = "./todo.json";
+        const current = path.resolve();
+        this.file = path.resolve(current, "todo.json");         //file with notes is created in a current working directory
     }
     add(newnote) {
         const alldata = this.checkfile(this.file);
