@@ -31,7 +31,8 @@ function main() {
         })
         .command('list', 'list all notes', () => {
             const result = notes.list();
-            console.log(result);
+            if (result.length < 1) console.log("No notes found!");
+            else console.log(result);
         })
         .command('read', 'read a note by title', (yargs) => {
             yargs.options('t', { demand: true, desc: 'Note title' })
