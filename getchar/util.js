@@ -57,7 +57,7 @@ class Util {
     }
 
     getKeys(args) {
-        const keys = ['id', 'name', 'species', 'status', 'type', 'gender', 'origin', 'location', 'episode'];        //availiable parameters for search 
+        const keys = ['id', 'name', 'species', 'status', 'type', 'gender', 'origin', 'location'];        //availiable parameters for search 
         const result = [];
         Object.keys(args).forEach((el) => {                 //get keys from command arguments
             if (keys.includes(el)) result.push(el);         //if the key is a search parameter, save it
