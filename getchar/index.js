@@ -7,15 +7,16 @@ function main() {
     const args = yargs
         .usage("An app to search for a specific character on rickandmortyapi.com")
         .example("$0 -n Rick")
-        .option("i", { alias: "id", describe: "Character ID", type: "number" })
-        .option("n", { alias: "name", describe: "Character name", type: "string" })
-        .option("u", { alias: "status", describe: "Character status", type: "string" })
-        .option("s", { alias: "species", describe: "Character species", type: "string" })
-        .option("t", { alias: "type", describe: "Character type", type: "string" })
-        .option("g", { alias: "gender", describe: "Character gender", type: "string" })
-        .option("o", { alias: "origin", describe: "Character origin", type: "string" })
-        .option("l", { alias: "location", describe: "Character location", type: "string" })
-        .help()
+        .options({
+            "i": { alias: "id", describe: "Character ID", type: "number" },
+            "n": { alias: "name", describe: "Character name", type: "string" },
+            "u": { alias: "status", describe: "Character status", type: "string" },
+            "s": { alias: "species", describe: "Character species", type: "string" },
+            "t": { alias: "type", describe: "Character type", type: "string" },
+            "g": { alias: "gender", describe: "Character gender", type: "string" },
+            "o": { alias: "origin", describe: "Character origin", type: "string" },
+            "l": { alias: "location", describe: "Character location", type: "string" }
+        })
         .argv;
 
     try {
