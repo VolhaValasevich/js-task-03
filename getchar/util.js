@@ -13,7 +13,7 @@ class Util {
                 if (body.info.next !== "") {                    //checking if it is the last page
                     return getchars(body.info.next);            //if not, get characters from the next page
                 } else return result;
-            })
+            }).catch((err) => { return err; })
 
         return getchars(url);
     }

@@ -8,14 +8,14 @@ function main() {
         .usage("An app to search for a specific character on rickandmortyapi.com")
         .example("$0 -n Rick")
         .alias({
-            'i' : 'id',
+            'i': 'id',
             'n': 'name',
             'u': 'status',
             's': 'species',
             't': 'type',
             'g': 'gender',
-            'o' : 'origin',
-            'l' : 'location'
+            'o': 'origin',
+            'l': 'location'
         })
         .argv;
 
@@ -28,7 +28,7 @@ function main() {
             fs.writeFileSync(`result${Date.now()}.json`, JSON.stringify(result));    //Date.now() is used to give each search result file a unique name
         }
         else console.log("No such characters found.");
-    })
+    }).catch((err) => { console.log(err) })
 }
 
 main();
