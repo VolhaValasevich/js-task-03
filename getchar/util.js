@@ -20,14 +20,12 @@ class Util {
 
     search(args) {
         return new Promise((resolve, reject) => {
-            try {
-                this.getData(this.url).then((data) => {        //get all data
-                    const chars = data.map((el) => {           //creating a new array of characters
-                        return this.compare(el, args);         //check current element by all the parameters
-                    })
-                    resolve(chars);
+            this.getData(this.url).then((data) => {        //get all data
+                const chars = data.map((el) => {           //creating a new array of characters
+                    return this.compare(el, args);         //check current element by all the parameters
                 })
-            } catch (err) { reject(err); }
+                resolve(chars);
+            }).catch((err) => { reject(err); })
         })
     }
 
@@ -62,7 +60,7 @@ class Util {
         Object.keys(args).forEach((el) => {                 //get keys from command arguments
             if (keys.includes(el)) result.push(el);         //if the key is a search parameter, save it
         })
-        if (result.length < 1) throw new Error("You didn't enter a command!");
+        if (result.length < 1) throw new Error("You didn't enter any valid search parameters!");
         return result;
     }
 
@@ -77,7 +75,6 @@ class Util {
         })
         return result.slice(0, -1);        //removing the last \n to make the text look better in the terminal
     }
-
 }
 
 module.exports = Util;
