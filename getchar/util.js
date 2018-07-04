@@ -36,7 +36,7 @@ class Util {
         let flag = true;                                                //flag to indicate that current character fits the criteria
         for (let i = 0; i < keys.length; i++) {                         //checking multiple parameters
             if (keys[i] == "id") {
-                if (el[keys[i]].toString() !== args[keys[i]].toString()) {       //id is a number and has to be an exact match
+                if (el[keys[i]] !== args[keys[i]]) {       //id is a number and has to be an exact match
                     flag = false;                   //if one parameter does not fit the criteria, character is marked as not right
                     break;                          //and cycle breaks
                 }
